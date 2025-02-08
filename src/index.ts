@@ -6,8 +6,8 @@ const app = express();
 app.use(morgan('dev')); // logger
 
 app.get('/', async (req, res) => {
-  const pets = await db.pet.findMany();
-  res.json(pets);
+  const posts = await db.pet.findMany();
+  res.json(posts);
 });
 
 const port = Number(process.env.PORT ?? 8080);
