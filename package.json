@@ -11,10 +11,12 @@
     "db:console": "docker compose run postgres psql -h localhost -U postgres -d webapp_dev",
     "db:migrate": "prisma migrate dev",
     "migrate": "docker compose run backend yarn db:migrate",
-    "migrate:undo": "docker compose run backend pnpx knex migrate:down",
+    "migrate:undo": "docker compose run backend yarn prisma migrate reset",
     "seed": "docker compose run backend yarn ts-node scripts/seed/dev.ts",
     "rebuild": "docker compose build backend && docker compose rm --force --stop backend && docker compose up -d backend",
-    "doall": "yarn migrate && yarn seed && yarn rebuild"
+    "doall": "yarn migrate && yarn seed && yarn rebuild",
+    "db:reset": "yarn migrate:undo && yarn migrate && yarn seed",
+    "restart": "docker compose restart backend"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",

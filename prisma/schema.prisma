@@ -20,10 +20,32 @@ model User {
 }
 
 model Pet {
-  id    Int    @id @default(autoincrement())
-  name  String
-  breed String
-  age   Int
+  id     Int    @id @default(autoincrement())
+  name   String
+  specie String
+  breed  String
+  age    Int
+  customer PetCustomer[]
 
   @@map("pets")
+}
+
+model Customer {
+  id    Int    @id @default(autoincrement())
+  name  String
+  phone String
+  pet PetCustomer[]
+
+  @@map("customers")
+}
+
+
+model PetCustomer {
+  petId Int
+  pet Pet @relation(fields: [petId], references: [id])
+  customerId Int
+  customer Customer @relation(fields: [customerId], references: [id])
+  
+  @@id([petId, customerId])
+  @@map("petcustomer")
 }
