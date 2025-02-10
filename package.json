@@ -7,7 +7,6 @@
     "build": "rimraf dist && swc ./src -d dist",
     "start": "node dist/index.js",
     "start:docker": "yarn build && node --inspect=0.0.0.0 dist/index.js",
-
     "db:console": "docker compose run postgres psql -h localhost -U postgres -d webapp_dev",
     "db:migrate": "prisma migrate dev",
     "migrate": "docker compose run backend yarn db:migrate",
@@ -38,5 +37,6 @@
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.1",
     "watchy": "^0.10.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
