@@ -7,7 +7,7 @@
     "build": "rimraf dist && swc ./src -d dist",
     "start": "node dist/src/index.js",
     "start:docker": "yarn build && node --inspect=0.0.0.0 dist/src/index.js",
-    
+
     "db:console": "docker compose run postgres psql -h localhost -U postgres -d webapp_dev",
     "migrate": "docker compose run backend yarn prisma migrate dev",
     "migrate:undo": "docker compose run backend yarn prisma migrate reset",
@@ -17,7 +17,7 @@
     "rebuild": "docker compose build backend && docker compose rm --force --stop backend && docker compose up -d backend",
     "restart": "docker compose restart backend",
 
-    "doall": "yarn migrate && yarn seed && yarn rebuild"
+    "doall": "yarn migrate && yarn seed"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",
