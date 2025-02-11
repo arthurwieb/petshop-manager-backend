@@ -3,6 +3,7 @@ sudo chown -R $USER:$USER node_modules
 
 No package.json existem alguns scripts que são utilizados para auxiliar no desenvolvimento, é uma forma de simplificar os comandos e não ter que ficar escrevendo toda vez aquele monte de comando do docker, vou resumir o que cada um faz:
 
+```bash
 docker compose up
 Sobe o servidor e os containers, sempre começar por esse comando.
 
@@ -38,5 +39,5 @@ Comando auxiliar no desenvolvimento só para dar um reset completo no BD e criar
 
 yarn seed
 Popula o db com as informações que foram definidas em um arquivo específico de seed.
-
+```
 
