@@ -13,15 +13,14 @@
     "migrate:undo": "docker compose run backend yarn prisma migrate reset",
     "db:reset": "yarn migrate:undo && yarn migrate && yarn seed",
     "seed": "docker compose run backend yarn ts-node scripts/seed/dev.ts",
-    
     "rebuild": "docker compose build backend && docker compose rm --force --stop backend && docker compose up -d backend",
     "restart": "docker compose restart backend",
-
     "doall": "yarn migrate && yarn seed"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "express": "^4.18.2",
+    "fastify": "^5.2.1",
     "morgan": "^1.10.0",
     "typescript": "^5.0.3"
   },

@@ -1,4 +1,4 @@
-.pnpm-store
+.yarn.lock
 .vscode
 dist
 node_modules
