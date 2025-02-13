@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 fastify.register(cors);
 
 fastify.get("/", async () => {
-  return { message: "Fastify + TypeScript + Prisma is running!" };
+  return { message: "Fastify + TypeScript + Prisma is running teu cu!" };
 });
 
 fastify.get("/users", async () => {  
