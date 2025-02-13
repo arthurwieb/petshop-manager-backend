@@ -1,40 +1,21 @@
 {
-  "name": "ultimate-node-stack",
-  "version": "1.0.0",
-  "main": "src/index.js",
-  "license": "MIT",
+  "name": "petshop-manager-backend",
+  "packageManager": "yarn@4.6.0",
   "scripts": {
-    "build": "rimraf dist && swc ./src -d dist",
-    "start": "node dist/index.js",
-    "start:docker": "yarn build && node --inspect=0.0.0.0 dist/index.js",
-    "db:console": "docker compose run postgres psql -h localhost -U postgres -d webapp_dev",
-    "db:migrate": "prisma migrate dev",
-    "migrate": "docker compose run backend yarn db:migrate",
-    "migrate:undo": "docker compose run backend pnpx knex migrate:down",
-    "seed": "docker compose run backend yarn ts-node scripts/seed/dev.ts",
-    "rebuild": "docker compose build backend && docker compose rm --force --stop backend && docker compose up -d backend",
-    "doall": "yarn migrate && yarn seed && yarn rebuild"
+    "dev": "tsx src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "dependencies": {
+    "@fastify/cors": "^10.0.2",
     "@prisma/client": "^6.3.1",
-    "express": "^4.18.2",
-    "morgan": "^1.10.0",
-    "typescript": "^5.0.3"
+    "fastify": "^5.2.1"
   },
   "devDependencies": {
-    "@swc/cli": "^0.6.0",
-    "@swc/core": "^1.3.44",
-    "@tsconfig/node18": "^18.2.4",
-    "@types/express": "^5.0.0",
-    "@types/morgan": "^1.9.4",
     "@types/node": "^22.13.1",
-    "@typescript-eslint/eslint-plugin": "^8.23.0",
-    "@typescript-eslint/parser": "^8.23.0",
-    "eslint": "^9.19.0",
+    "fastify-cli": "^7.3.0",
     "prisma": "^6.3.1",
-    "rimraf": "^6.0.1",
-    "ts-node": "^10.9.1",
-    "watchy": "^0.10.0"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
 }

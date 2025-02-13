@@ -1,2 +1,6 @@
-se der pau com permissão na instalação, rode
-sudo chown -R $USER:$USER node_modules
+# petshop-manager-backend
+
+#se der pau com node modules não criados
+https://yarnpkg.com/getting-started/install
+yarn config set nodeLinker node-modules
+yarn install
