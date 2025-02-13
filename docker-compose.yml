@@ -1,0 +1,9 @@
+services:
+  fastify-backend:
+    image: fastify-backend  # This should match the image name you used in the `docker build` command
+    build: .
+    ports:
+      - "3000:3000"  # Map port 3000 from the container to port 3000 on your host
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
