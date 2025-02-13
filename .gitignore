@@ -10,5 +10,5 @@
 # Documentation here: https://yarnpkg.com/features/caching#zero-installs
 
 #!.yarn/cache
-# node_modules
-# dist
+node_modules
+dist
