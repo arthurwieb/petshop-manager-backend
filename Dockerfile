@@ -22,4 +22,4 @@ RUN yarn build
 EXPOSE 3000
 
 # Start Fastify server
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]

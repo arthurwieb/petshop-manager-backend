@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   app:
     build: .
@@ -9,10 +7,12 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb      
     volumes:
       - .:/app
       - /app/node_modules
+    command: yarn dev && yarn run prisma migrate dev
 
   db:
     image: postgres:latest
@@ -26,6 +26,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    
 
 volumes:
   pgdata:
