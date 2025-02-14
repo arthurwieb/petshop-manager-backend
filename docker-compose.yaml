@@ -1,0 +1,32 @@
+services:
+  app:
+    build: .
+    container_name: fastify_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb      
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: yarn dev && yarn run prisma migrate dev
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    
+
+volumes:
+  pgdata:

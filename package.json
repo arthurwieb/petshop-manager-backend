@@ -1,0 +1,24 @@
+{
+  "name": "petshop-manager-backend",
+  "packageManager": "yarn@4.6.0",
+  "scripts": {
+    "1dev": "tsx src/server.ts",
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@prisma/client": "^6.3.1",
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "fastify-cli": "^7.3.0",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.3.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
