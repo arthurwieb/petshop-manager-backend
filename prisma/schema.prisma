@@ -13,8 +13,50 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Company {
+  id         Int        @id @default(autoincrement())
+  name       String
+  address    String?
+  users      User[]
+  customers  Customer[]
+  pets       Pet[]
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+}
+
 model User {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
+  id         Int      @id @default(autoincrement())
+  company_id Int
+  company    Company  @relation(fields: [company_id], references: [id])
+  username   String   @unique
+  password   String
+  email      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Customer {
+  id         Int      @id @default(autoincrement())
+  company_id Int
+  company    Company  @relation(fields: [company_id], references: [id])
+  name       String
+  phone      String?
+  email      String?
+  pets       Pet[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Pet {
+  id          Int      @id @default(autoincrement())
+  company_id  Int
+  company     Company  @relation(fields: [company_id], references: [id])
+  customer_id Int
+  customer    Customer @relation(fields: [customer_id], references: [id])
+  name        String
+  species     String
+  breed       String?
+  age         Int?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
