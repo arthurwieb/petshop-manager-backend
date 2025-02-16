@@ -1,16 +1,10 @@
-import { PrismaClient } from "@prisma/client/extension";
 import { FastifyReply, FastifyRequest } from "fastify";
+import { Prisma } from '@prisma/client';
 
 export class PetController {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
-  async CreatePet(request: FastifyRequest, reply: FastifyReply) {
+  static async createPet(request: FastifyRequest<{ Body: Prisma.PetCreateInput}>, reply: FastifyReply) {
      try {
-      const pet = await this.prisma.pet.create({ data: request.body });
+      const pet = await request.server.prisma.pet.create({ data: request.body });
       return reply.send(pet);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to create pet' });
