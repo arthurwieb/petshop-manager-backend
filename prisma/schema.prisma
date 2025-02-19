@@ -28,6 +28,7 @@ model User {
   id         Int      @id @default(autoincrement())
   company_id Int
   company    Company  @relation(fields: [company_id], references: [id])
+  name       String
   username   String   @unique
   password   String
   email      String   @unique

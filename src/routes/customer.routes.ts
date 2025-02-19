@@ -18,4 +18,5 @@ export default async function customerRoutes(fastify: FastifyInstance) {
   fastify.post('/customers', { schema: createCustomerSchema }, CustomerController.createCustomer);
   fastify.get('/customers', CustomerController.getCustomers);
   fastify.get('/customers/:id', CustomerController.getCustomerById);
+  fastify.delete('/customers/:id', CustomerController.deleteCustomer); 
 }

@@ -30,4 +30,15 @@ export class CustomerController {
       reply.status(500).send({ error: 'Failed to fetch customer' });
     }
   }
+
+  static async deleteCustomer(request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) {
+    try {
+      const deletedCustomer = await request.server.prisma.customer.delete({
+        where: { id: parseInt(request.params.id, 10) },
+      });
+      return reply.send({ message: 'Customer deleted successfully', customer: deletedCustomer });
+    } catch (error) {
+      return reply.status(500).send({ error: 'Failed to delete customer' });
+    }
+  }
 }
