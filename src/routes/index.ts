@@ -1,6 +1,7 @@
 import companyRoutes from './company.routes';
 import customerRoutes from './customer.routes';
 import userRoutes from './user.routes';
+import petRoutes from './pet.routes';
 import { FastifyInstance } from 'fastify';
 
 /*
@@ -11,4 +12,5 @@ export default async function routes(fastify: FastifyInstance) {
   fastify.register(companyRoutes);
   fastify.register(customerRoutes);
   fastify.register(userRoutes);
+  fastify.register(petRoutes);
 }
