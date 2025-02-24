@@ -16,9 +16,9 @@ const createPetSchema = {
 };
 
 export default async function petRoutes(fastify: FastifyInstance) {
-  fastify.post('/companies', { schema: createPetSchema }, PetController.createPet);
-  fastify.get('/companies', PetController.getPets);
-  fastify.get('/companies/:id', PetController.getPetById);
-  fastify.delete('/companies/:id', PetController.deletePet); 
-  fastify.patch('/companies', { schema: createPetSchema }, PetController.updatePet);
+  fastify.post('/pets', { schema: createPetSchema }, PetController.createPet);
+  fastify.get('/pets', PetController.getPets);
+  fastify.get('/pets/:id', PetController.getPetById);
+  fastify.delete('/pets/:id', PetController.deletePet); 
+  fastify.patch('/pets', { schema: createPetSchema }, PetController.updatePet);
 }
