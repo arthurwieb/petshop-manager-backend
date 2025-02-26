@@ -8,14 +8,16 @@ const createCompanySchema = z.object({
   }),
 });
 
-console.log(createCompanySchema);
-
 export class CompanyController {
   static async createCompany(request: FastifyRequest<{ Body: Prisma.CompanyCreateInput}>, reply: FastifyReply) {
     try {
       // acessa o prisma porque lá no PLUGIN adicionamos ele na instance do fastify(server)
-      const company = await request.server.prisma.company.create({ data: request.body });
-      return reply.send(company);
+      // const company = await request.server.prisma.company.create({ data: request.body });
+      
+      const { body } = createCompanySchema.parse(request);
+      await request.server.prisma.company.create( {data: body} );
+
+      return reply.send(body);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to create company' });
     }
