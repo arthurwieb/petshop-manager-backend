@@ -1,5 +1,5 @@
 # Use Node 22 as base image
-FROM node:22
+FROM node:22-alpine
 # Enable Corepack for managing Yarn versions
 RUN corepack enable && corepack prepare yarn@4.6.0 --activate
 
@@ -10,7 +10,8 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Install dependencies with Yarn
-RUN yarn install --immutable
+RUN rm -rf node_modules
+RUN yarn install
 
 # Copy the rest of the app files
 COPY . .
