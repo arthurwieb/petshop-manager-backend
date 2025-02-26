@@ -3,7 +3,7 @@ import routes from './routes';
 import prismaPlugin from './plugins/prisma.plugin';
 
 export default function buildApp() {
-  const app = fastify({ logger: true });
+  const app = fastify();
 
   // Register the Prisma plugin
   app.register(prismaPlugin);
