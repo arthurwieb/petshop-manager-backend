@@ -1,10 +1,22 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Prisma } from '@prisma/client';
+import { z } from 'zod';
+
+const createUserSchema = z.object({
+  body: z.object({
+    company_id: z.number().int(),
+    name: z.string(),
+    username: z.string(),
+    password: z.string(),
+    email: z.string().email(),
+  }),
+});
 
 export class UserController {
   static async createUser(request: FastifyRequest<{ Body: Prisma.UserCreateInput}>, reply: FastifyReply) {
      try {
-      const user = await request.server.prisma.user.create({ data: request.body });
+      const { body } = createUserSchema.parse(request);
+      const user = await request.server.prisma.user.create({ data: body });
       return reply.send(user);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to create user' });

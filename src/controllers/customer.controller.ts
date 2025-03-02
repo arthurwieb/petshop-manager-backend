@@ -1,10 +1,21 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Prisma } from '@prisma/client';
+import { z } from 'zod';
+
+const createCustomerSchema = z.object({
+  body: z.object({
+    company_id: z.number(),
+    name: z.string(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+  }),
+});
 
 export class CustomerController {
   static async createCustomer(request: FastifyRequest<{ Body: Prisma.CustomerCreateInput}>, reply: FastifyReply) {
      try {
-      const customer = await request.server.prisma.customer.create({ data: request.body });
+      const { body } = createCustomerSchema.parse(request);
+      const customer = await request.server.prisma.customer.create({data: body});
       return reply.send(customer);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to create customer' });
