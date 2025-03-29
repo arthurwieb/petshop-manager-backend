@@ -12,6 +12,7 @@ COPY package.json yarn.lock ./
 # Install dependencies with Yarn
 RUN rm -rf node_modules
 RUN yarn install
+RUN yarn cache clean
 
 # Copy the rest of the app files
 COPY . .
