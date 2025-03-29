@@ -7,4 +7,8 @@ export default async function userRoutes(fastify: FastifyInstance) {
   fastify.get('/users', UserController.getUsers);
   fastify.get('/users/:id', UserController.getUserById);
   fastify.delete('/users/:id', UserController.deleteUser); 
+
+  fastify.get("/profile", async (req) => {
+    return req.user;
+  });
 }

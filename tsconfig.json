@@ -10,7 +10,7 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "typeRoots": ["./node_modules/@types", "./src/types"] // isso é feito para checar os tipos e extensões de modulos customs
+    "typeRoots": ["/node_modules/@types", "./src/types"] // isso é feito para checar os tipos e extensões de modulos customs
   },
   "include": ["src"],
   "exclude": ["node_modules"]

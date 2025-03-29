@@ -1,16 +1,19 @@
 import fastify from 'fastify';
 import routes from './routes';
 import prismaPlugin from './plugins/prisma.plugin';
+import fastifyJwt from "@fastify/jwt";
+import loginRoutes from './routes/login.routes';
 
 export default function buildApp() {
-  // colocar logger: true se quiser debugar hard
   const app = fastify();
 
-  // Register the Prisma plugin
   app.register(prismaPlugin);
-
-  // Register all routes
+  app.register(loginRoutes);
   app.register(routes);
 
+  app.register(fastifyJwt, {
+    secret: "RASGUEI",
+  });
+  
   return app;
 }
