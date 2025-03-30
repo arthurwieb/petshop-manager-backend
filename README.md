@@ -11,27 +11,28 @@ Primeira versão de readme, preciso validar tudo, vou escrever os passos meio qu
 Buildar o docker
 
 ````
-```docker build . -t fastify-app`
-```
+docker build . -t fastify-app`
+````
 
 Iniciar o container
-```
+````
 docker compose up -d
-```
+````
 
 Teoricamente, aqui tudo já está rodando, banco e o server
 
 Rodar migrations e depois seeder
-```criar o script aqui`
-```
-```
+````criar o script aqui`
+````
+
 
 para acessar o banco via psql
-```docker exec -it NOME_DO_CONTAINER bash`
-```
+`````
+docker exec -it NOME_DO_CONTAINER bash`
+
 psql -Upostgres mydb
 
 \d -- aparece todas tabelas
-```
+`````
 
 
