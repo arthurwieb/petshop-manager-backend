@@ -5,6 +5,7 @@
 See: <https://yarnpkg.com/getting-started/install>
 Run: yarn config set nodeLinker node-modules
 Run: yarn install
+OBS: após o update do jwt by anderson, pode ser que bugue tudo, ai é só remover a image e o container e buildar do 0, (--no-cache)
 
 Primeira versão de readme, preciso validar tudo, vou escrever os passos meio que de cabeça que eu fiz ontem
 
