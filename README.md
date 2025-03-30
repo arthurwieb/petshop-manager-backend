@@ -22,7 +22,8 @@ docker compose up -d
 Teoricamente, aqui tudo já está rodando, banco e o server
 
 Rodar migrations e depois seeder
-````criar o script aqui`
+````
+criar o script aqui
 ````
 
 
