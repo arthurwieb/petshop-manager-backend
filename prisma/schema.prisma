@@ -1,64 +1,58 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
-}
-
-model Company {
+model company {
   id         Int        @id @default(autoincrement())
   name       String
   address    String?
-  users      User[]
-  customers  Customer[]
-  pets       Pet[]
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
+  customers  customer[]
+  pets       pet[]
+  users      user[]
 }
 
-model User {
+model user {
   id         Int      @id @default(autoincrement())
   company_id Int
-  company    Company  @relation(fields: [company_id], references: [id])
-  name       String
   username   String   @unique
   password   String
   email      String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  name       String
+  company    company  @relation(fields: [company_id], references: [id])
 }
 
-model Customer {
+model customer {
   id         Int      @id @default(autoincrement())
   company_id Int
-  company    Company  @relation(fields: [company_id], references: [id])
   name       String
   phone      String?
   email      String?
-  pets       Pet[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  company    company  @relation(fields: [company_id], references: [id])
+  pets       pet[]
 }
 
-model Pet {
+model pet {
   id          Int      @id @default(autoincrement())
   company_id  Int
-  company     Company  @relation(fields: [company_id], references: [id])
   customer_id Int
-  customer    Customer @relation(fields: [customer_id], references: [id])
   name        String
   species     String
   breed       String?
   age         Int?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+  company     company  @relation(fields: [company_id], references: [id])
+  customer    customer @relation(fields: [customer_id], references: [id])
 }
