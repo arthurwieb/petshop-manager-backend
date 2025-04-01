@@ -21,7 +21,7 @@ COPY . .
 RUN yarn build
 
 # Expose port
-EXPOSE 3000
+EXPOSE 3001
 
 # Start Fastify server
 CMD ["yarn", "dev"]
