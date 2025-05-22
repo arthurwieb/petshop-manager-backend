@@ -6,7 +6,13 @@ const loginSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8, "Password must be at least 8 characters long")
 });
-    
+
+const extendedUserSchema = loginSchema.omit({password: true}).extend({
+  name: z.string(),
+  id: z.number(),
+  company_id: z.number()
+});
+
 export class LoginController {
   static async Register(request: FastifyRequest, reply: FastifyReply) {
     console.log(request.body)
@@ -25,8 +31,9 @@ export class LoginController {
       return reply.status(401).send({ message: "Invalid password" });
     }
 
+    const loggedUser = extendedUserSchema.parse(existingUser);
     const token = request.server.jwt.sign({ id: existingUser.id, email: existingUser.email });
 
-    return reply.status(200).send({ token });
+    return reply.status(200).send({ ...loggedUser, token });
   }
 }
