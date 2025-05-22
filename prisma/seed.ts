@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
+import { hashPassword } from "../src/utils/hash";
+
 const prisma = new PrismaClient();
 
 const run = async () => {
-//async function main() {
   // Clear existing data
   await prisma.pet.deleteMany();
   await prisma.customer.deleteMany();
@@ -32,8 +33,8 @@ const run = async () => {
         company_id: company1.id,
         name: 'Admin User',
         username: 'admin',
-        password: '12345678',
-        email: 'admin@petparadise.com'
+        password:  await hashPassword('12345678'),
+        email: 'admin@gmail.com'
       }
     }),
     prisma.user.create({
@@ -41,7 +42,7 @@ const run = async () => {
         company_id: company1.id,
         name: 'Staff User',
         username: 'staff',
-        password: '12345678',
+        password: await hashPassword('12345678'),
         email: 'staff@petparadise.com'
       }
     }),
@@ -50,7 +51,7 @@ const run = async () => {
         company_id: company2.id,
         name: 'Manager',
         username: 'manager',
-        password: '12345678',
+        password: await hashPassword('12345678'),
         email: 'manager@animalkingdom.com'
       }
     }),
@@ -59,7 +60,7 @@ const run = async () => {
         company_id: company2.id,
         name: 'Receptionist',
         username: 'reception',
-        password: '12345678',
+        password: await hashPassword('12345678'),
         email: 'reception@animalkingdom.com'
       }
     })
