@@ -5,11 +5,12 @@ import { z } from 'zod';
 const createPetSchema = z.object({
   body: z.object({
     company_id: z.number().int(),
-    customer_id: z.number().int(),
+    customer_id: z.coerce.number().int(),
     name: z.string(),
     species: z.string(),
     breed: z.string().optional(),
-    age: z.number().int().optional()
+    age: z.number().int().optional(),
+    notes: z.string().optional(),
   }),
 });
 
@@ -24,7 +25,8 @@ export const updatePetSchema = z.object({
 export class PetController {
   static async createPet(request: FastifyRequest<{ Body: Prisma.PetCreateInput }>, reply: FastifyReply) {
     try {
-      const pet = await request.server.prisma.pet.create({ data: request.body });
+      const validated = createPetSchema.parse(request);
+      const pet = await request.server.prisma.pet.create({ data: validated.body });
       return reply.send(pet);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to create pet' });

@@ -16,7 +16,7 @@ generator client {
 
 model Company {
   id         Int        @id @default(autoincrement())
-  name       String
+  name       String     @unique
   address    String?
   users      User[]
   customers  Customer[]
@@ -43,7 +43,7 @@ model Customer {
   company    Company  @relation(fields: [company_id], references: [id])
   name       String
   phone      String?
-  email      String?
+  email      String?  @unique
   pets       Pet[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -59,6 +59,7 @@ model Pet {
   species     String
   breed       String?
   age         Int?
+  notes       String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }

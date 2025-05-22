@@ -7,12 +7,16 @@ RUN corepack enable && corepack prepare yarn@4.6.0 --activate
 WORKDIR /app
 
 # Copy package files first
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
 
 # Install dependencies with Yarn
 RUN rm -rf node_modules
-RUN yarn install
+RUN yarn install --immutable
 RUN yarn cache clean
+
+COPY prisma/schema.prisma ./prisma/
+RUN yarn prisma generate
 
 # Copy the rest of the app files
 COPY . .

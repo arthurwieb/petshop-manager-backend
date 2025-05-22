@@ -1,11 +1,18 @@
 {
   "name": "petshop-manager-backend",
   "packageManager": "yarn@4.6.0",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "1dev": "tsx src/server.ts",
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "seed": "yarn prisma db seed",
+    "migrate": "yarn prisma migrate dev",
+    "reset": "yarn prisma migrate reset",
+    "rebuild:be": "docker compose build app && docker compose rm --force --stop app && docker compose up -d app"
   },
   "dependencies": {
     "@fastify/cors": "^11.0.1",
@@ -19,12 +26,12 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.15.21",
     "fastify-cli": "^7.3.0",
     "nodemon": "^3.1.9",
     "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.3"
   }
 }

@@ -1,5 +1,7 @@
 services:
   app:
+    labels:
+      - "com.docker.compose.autoremove=true"
     build: .
     container_name: fastify_app
     ports:
