@@ -1,17 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Prisma } from '@prisma/client';
 import { hashPassword } from "../utils/hash";
-import { z } from 'zod';
-
-const createUserSchema = z.object({
-  body: z.object({
-    company_id: z.number().int(),
-    name: z.string(),
-    username: z.string(),
-    password: z.string().min(8, "Password must be at least 8 characters long"),
-    email: z.string().email(),
-  }),
-});
+import { companyIdSchema } from "../schemas/zodschemas";
+import { createUserSchema } from "../schemas/user";
 
 export class UserController {
   static async createUser(request: FastifyRequest<{ Body: Prisma.UserCreateInput}>, reply: FastifyReply) {
@@ -36,7 +27,11 @@ export class UserController {
 
   static async getUsers(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const users = await request.server.prisma.user.findMany();
+      const { company_id } = companyIdSchema.parse(request.query);
+      const users = await request.server.prisma.user.findMany({
+        where: company_id ? { company_id } : {},
+      });
+      
       return reply.send(users);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to fetch users' });

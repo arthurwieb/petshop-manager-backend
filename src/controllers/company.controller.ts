@@ -1,13 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Prisma } from '@prisma/client';
-import { z } from 'zod';
-
-const createCompanySchema = z.object({
-  body: z.object({
-    name: z.string(),
-    address: z.string().optional(),
-  }),
-});
+import { createCompanySchema } from "../schemas/company";
 
 export class CompanyController {
   static async createCompany(request: FastifyRequest<{ Body: Prisma.CompanyCreateInput}>, reply: FastifyReply) {

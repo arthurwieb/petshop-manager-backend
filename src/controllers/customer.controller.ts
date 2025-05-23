@@ -1,15 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Prisma } from '@prisma/client';
-import { z } from 'zod';
-
-const createCustomerSchema = z.object({
-  body: z.object({
-    company_id: z.number(),
-    name: z.string(),
-    phone: z.string().optional(),
-    email: z.string().optional(),
-  }),
-});
+import { companyIdSchema } from "../schemas/zodschemas";
+import { createCustomerSchema } from "../schemas/customer";
 
 export class CustomerController {
   static async createCustomer(request: FastifyRequest<{ Body: Prisma.CustomerCreateInput}>, reply: FastifyReply) {
@@ -24,7 +16,11 @@ export class CustomerController {
 
   static async getCustomers(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const customers = await request.server.prisma.customer.findMany();
+      const { company_id } = companyIdSchema.parse(request.query);
+      const customers = await request.server.prisma.customer.findMany({
+        where: company_id ? { company_id } : {},
+      });
+      
       return reply.send(customers);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to fetch customers' });

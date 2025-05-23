@@ -1,17 +1,6 @@
 import { FastifyReply, FastifyRequest, FastifyInstance } from "fastify";
 import { verifyPassword } from "../utils/hash";
-import { z } from 'zod';
-
-const loginSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8, "Password must be at least 8 characters long")
-});
-
-const extendedUserSchema = loginSchema.omit({password: true}).extend({
-  name: z.string(),
-  id: z.number(),
-  company_id: z.number()
-});
+import { loginSchema, extendedUserSchema } from "../schemas/login";
 
 export class LoginController {
   static async Register(request: FastifyRequest, reply: FastifyReply) {

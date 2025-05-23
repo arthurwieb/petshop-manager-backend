@@ -1,26 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Prisma } from '@prisma/client';
-import { z } from 'zod';
-
-const createPetSchema = z.object({
-  body: z.object({
-    company_id: z.number().int(),
-    customer_id: z.coerce.number().int(),
-    name: z.string(),
-    species: z.string(),
-    breed: z.string().optional(),
-    age: z.number().int().optional(),
-    notes: z.string().optional(),
-  }),
-});
-
-//Para o patch, precisa ter um objeto zod com tudo optional
-export const updatePetSchema = z.object({
-  params: z.object({
-    id: z.string().regex(/^\d+$/, "ID must be a number"),
-  }),
-  body: createPetSchema.shape.body.partial(),
-});
+import { companyIdSchema } from "../schemas/zodschemas";
+import { createPetSchema, updatePetSchema } from "../schemas/pet";
 
 export class PetController {
   static async createPet(request: FastifyRequest<{ Body: Prisma.PetCreateInput }>, reply: FastifyReply) {
@@ -33,10 +14,13 @@ export class PetController {
     }
   }
 
-
   static async getPets(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const pets = await request.server.prisma.pet.findMany();
+      const { company_id } = companyIdSchema.parse(request.query);
+      const pets = await request.server.prisma.pet.findMany({
+        where: company_id ? { company_id } : {},
+      });
+      
       return reply.send(pets);
     } catch (error) {
       return reply.status(500).send({ error: 'Failed to fetch pets' });
