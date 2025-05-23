@@ -23,6 +23,8 @@ model Company {
   pets       Pet[]
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
+
+  @@map("company")
 }
 
 model User {
@@ -35,6 +37,8 @@ model User {
   email      String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@map("user")
 }
 
 model Customer {
@@ -47,6 +51,8 @@ model Customer {
   pets       Pet[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@map("customer")
 }
 
 model Pet {
@@ -62,4 +68,6 @@ model Pet {
   notes       String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+
+  @@map("pet")
 }
